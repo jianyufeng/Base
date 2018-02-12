@@ -19,6 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--蒲公英 必选-->
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="d92f1bf4e03c2dceacfb06e632826731" >
+        </meta-data>
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"

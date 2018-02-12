@@ -5,9 +5,13 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
+import com.android.base.constant.Constant;
+import com.android.base.util.CheckAndTransportFile;
 import com.fpi.mobile.base.BaseActivity;
 import com.fpi.mobile.permission.DangerousPermissions;
 import com.fpi.mobile.permission.PermissionsHelper;
+
+import java.io.File;
 
 import static com.fpi.mobile.permission.DangerousPermissions.PERMISSIONS;
 
@@ -22,6 +26,7 @@ public class SplashActivity extends BaseActivity {
 
 
     private void goMainActivity() {
+        checkFile();
         long absTime = System.currentTimeMillis() - tempTime;
         long holdTime = 0;
         if (absTime <= splashTime) {
@@ -46,6 +51,15 @@ public class SplashActivity extends BaseActivity {
             checkPermissions();
         } else {
             goMainActivity();
+        }
+    }
+    /**
+     * 百度地图配置文件是否存在
+     */
+    private void checkFile() {
+        File file = new File(Constant.FILE_DIR, Constant.BAIDU_MAP_NAME);
+        if (!file.exists()) {
+            new Thread(new CheckAndTransportFile(this)).start();
         }
     }
 

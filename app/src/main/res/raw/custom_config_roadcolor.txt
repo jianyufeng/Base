@@ -1,0 +1,83 @@
+[
+{
+"featureType": "highway",
+"elementType": "geometry.fill",
+"stylers": {
+"color": "#ffffff",
+"visibility": "on"
+}
+},
+{
+"featureType": "highway",
+"elementType": "geometry.stroke",
+"stylers": {
+"color": "#ffffff"
+}
+},{
+"featureType": "arterial",
+"elementType": "geometry.fill",
+"stylers": {
+"color": "#ffffff",
+"visibility": "on"
+}
+},{
+"featureType": "arterial",
+"elementType": "geometry.stroke",
+"stylers": {
+"color": "#ffffff"
+}
+},{
+"featureType": "local",
+"elementType": "geometry.fill",
+"stylers": {
+"color": "#ffffff",
+"visibility": "on"
+}
+},{
+"featureType": "local",
+"elementType": "geometry.stroke",
+"stylers": {
+"color": "#ffffff"
+}
+},{
+"featureType": "railway",
+"elementType": "geometry.fill",
+"stylers": {
+"color": "#ffffff",
+"visibility": "on"
+}
+},{
+"featureType": "railway",
+"elementType": "geometry.stroke",
+"stylers": {
+"color": "#ffffff"
+}
+},{
+"featureType": "subway",
+"elementType": "geometry.fill",
+"stylers": {
+"color": "#ffffff",
+"visibility": "on"
+}
+},{
+"featureType": "subway",
+"elementType": "geometry.stroke",
+"stylers": {
+"color": "#ffffff"
+}
+},{
+"featureType": "poilabel",
+"elementType": "all",
+"stylers": {
+"color": "#ffffff",
+"visibility": "off"
+}
+},{
+"featureType": "boundary",
+"elementType": "all",
+"stylers": {
+"color": "#ffffff",
+"visibility": "off"
+}
+}
+]

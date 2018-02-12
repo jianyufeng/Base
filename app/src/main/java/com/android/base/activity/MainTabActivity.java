@@ -36,6 +36,7 @@ public class MainTabActivity extends BaseActivity implements BaseNetworkInterfac
     @Override
     public void preData() {
 //        userPresenter = new UserPresenter(this);
+
     }
 
     @Override
