@@ -18,16 +18,12 @@ import com.socks.library.KLog;
  */
 
 public class MainApplication extends BaseApplication {
-
-    public static final String NOTIFY_URL = "http://219.233.250.162:8090/dwsq/h5/appinfo.html";
-
-    //    public static final String NOTIFY_URL = "http://172.19.6.113:7021/dwsq/h5/appinfo.html";
     @Override
     protected void init() {
         //APP名称
         Constant.APP_NAME = "DWSQ";
         colorStatusBar = R.color.colorPrimaryDark;
-        //注册服务器地址
+        //服务器地址
         ServerUrl.BASE_URL = "http://219.233.250.162:8090";
         //百度地图
 //        SDKInitializer.initialize(getApplicationContext());

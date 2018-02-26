@@ -70,7 +70,7 @@ public class SplashActivity extends BaseActivity {
      */
     private void checkPermissions() {
         //危险权限需要根据实际情况调整
-        PERMISSIONS = new String[]{
+        DangerousPermissions.PERMISSIONS = new String[]{
                 DangerousPermissions.STORAGE};
         permissionsHelper = new PermissionsHelper(this, PERMISSIONS);
         if (permissionsHelper.checkAllPermissions(PERMISSIONS)) {
