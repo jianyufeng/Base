@@ -26,7 +26,7 @@ public class SplashActivity extends BaseActivity {
 
 
     private void goMainActivity() {
-        checkFile();
+//        checkFile();
         long absTime = System.currentTimeMillis() - tempTime;
         long holdTime = 0;
         if (absTime <= splashTime) {
@@ -35,7 +35,7 @@ public class SplashActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainTabActivity.class);
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

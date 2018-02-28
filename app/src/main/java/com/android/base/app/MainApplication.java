@@ -9,6 +9,7 @@ import com.fpi.mobile.base.BaseApplication;
 import com.fpi.mobile.bean.ModelUserBase;
 import com.fpi.mobile.constant.ServerUrl;
 import com.fpi.mobile.utils.StringTool;
+import com.hyphenate.easeui.EaseUI;
 import com.socks.library.KLog;
 
 
@@ -28,6 +29,8 @@ public class MainApplication extends BaseApplication {
         //百度地图
 //        SDKInitializer.initialize(getApplicationContext());
         KLog.init(BuildConfig.LOG_DEBUG);
+
+        EaseUI.getInstance().init(this, null);
     }
 
     @Override
