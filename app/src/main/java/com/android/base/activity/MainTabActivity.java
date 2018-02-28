@@ -2,17 +2,18 @@ package com.android.base.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 
 import com.android.base.R;
 import com.android.base.activity.present.UserPresenter;
-import com.android.base.adapter.MaintabAdapter;
+import com.android.base.adapter.MainTabAdapter;
 import com.android.base.constant.Constant;
-import com.android.base.fragment.AlarmFragment;
+import com.android.base.fragment.DatabaseFragment;
 import com.android.base.fragment.HomeFragment;
 import com.android.base.fragment.MineFragment;
-import com.android.base.fragment.StatisticsFragment;
+import com.android.base.fragment.ContactsFragment;
 import com.android.base.model.user.ModelUserInfo;
 import com.android.base.view.TabView;
 import com.fpi.mobile.base.BaseActivity;
@@ -23,6 +24,8 @@ import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 
 import me.majiajie.pagerbottomtabstrip.NavigationController;
 import me.majiajie.pagerbottomtabstrip.PageBottomTabLayout;
@@ -51,14 +54,18 @@ public class MainTabActivity extends BaseActivity implements BaseNetworkInterfac
         PageBottomTabLayout tab = (PageBottomTabLayout) findViewById(R.id.tab_main);
         navigationController = tab.custom()
                 .addItem(newItem(R.mipmap.ic_menu1_1, R.mipmap.ic_menu1_2, "首页"))
-                .addItem(newItem(R.mipmap.ic_menu2_1, R.mipmap.ic_menu2_2, "统计"))
-                .addItem(newItem(R.mipmap.ic_menu3_1, R.mipmap.ic_menu3_2, "报警"))
+                .addItem(newItem(R.mipmap.ic_menu2_1, R.mipmap.ic_menu2_2, "资料库"))
+                .addItem(newItem(R.mipmap.ic_menu3_1, R.mipmap.ic_menu3_2, "通讯录"))
                 .addItem(newItem(R.mipmap.ic_menu4_1, R.mipmap.ic_menu4_2, "我的"))
                 .build();
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setOffscreenPageLimit(4);
-        Class fragmentArray[] = {HomeFragment.class, StatisticsFragment.class, AlarmFragment.class, MineFragment.class};
-        viewPager.setAdapter(new MaintabAdapter(mContext, fragmentManager, fragmentArray));
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new HomeFragment());
+        fragments.add(new DatabaseFragment());
+        fragments.add(new ContactsFragment());
+        fragments.add(new MineFragment());
+        viewPager.setAdapter(new MainTabAdapter(mContext, fragmentManager, fragments));
         //自动适配ViewPager页面切换
         navigationController.setupWithViewPager(viewPager);
         navigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {

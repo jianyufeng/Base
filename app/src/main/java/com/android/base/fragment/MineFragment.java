@@ -6,15 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.base.R;
-import com.fpi.mobile.base.BaseFragment;
-import com.fpi.mobile.view.viewpager.LazyFragmentPagerAdapter;
 
 /**
  * 我的
  * Created by 14165 on 2017/8/12.
  */
 
-public class MineFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable {
+public class MineFragment extends  LazyFragment {
     private View mView;
 
     @Override
@@ -39,4 +37,9 @@ public class MineFragment extends BaseFragment implements LazyFragmentPagerAdapt
         mView = inflater.inflate(R.layout.frag_mine, container, false);
     }
 
+    @Override
+    protected void lazyLoad() {
+        showToast("我的");
+
+    }
 }

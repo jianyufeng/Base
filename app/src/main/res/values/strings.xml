@@ -1,5 +1,10 @@
 <resources>
-    <string name="app_name">Base</string>
+    <string name="app_name">杭州应急</string>
+
+    <string name="login">登录</string>
+    <string name="account">用户名</string>
+    <string name="psw">密码</string>
+    <string name="paw_digits">._0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ!?@#$%</string>
 
     <string name="login_failure">登录失败</string>
 

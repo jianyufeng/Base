@@ -6,15 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.base.R;
-import com.fpi.mobile.base.BaseFragment;
-import com.fpi.mobile.view.viewpager.LazyFragmentPagerAdapter;
 
 /**
- * 统计
+ * 资料库
  * Created by 14165 on 2017/8/12.
  */
 
-public class StatisticsFragment extends BaseFragment implements LazyFragmentPagerAdapter.Laziable {
+public class DatabaseFragment extends LazyFragment {
     private View mView;
 
     @Override
@@ -36,7 +34,13 @@ public class StatisticsFragment extends BaseFragment implements LazyFragmentPage
     }
 
     private void initView(LayoutInflater inflater, ViewGroup container) {
-        mView = inflater.inflate(R.layout.frag_statistics, container, false);
+        mView = inflater.inflate(R.layout.frag_alarm, container, false);
     }
 
+
+    @Override
+    protected void lazyLoad() {
+        showToast("资料库");
+
+    }
 }
