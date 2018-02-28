@@ -1,6 +1,7 @@
 package com.android.base.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,15 +11,17 @@ import com.android.base.R;
 import com.android.base.activity.present.UserPresenter;
 import com.android.base.adapter.MainTabAdapter;
 import com.android.base.constant.Constant;
-import com.android.base.fragment.DatabaseFragment;
 import com.android.base.fragment.HomeFragment;
-import com.android.base.fragment.MineFragment;
-import com.android.base.fragment.ContactsFragment;
 import com.android.base.model.user.ModelUserInfo;
 import com.android.base.view.TabView;
 import com.fpi.mobile.base.BaseActivity;
 import com.fpi.mobile.bean.ModelBase;
 import com.fpi.mobile.network.BaseNetworkInterface;
+import com.hyphenate.chat.EMConversation;
+import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.ui.EaseContactListFragment;
+import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
@@ -26,6 +29,8 @@ import com.pgyersdk.update.UpdateManagerListener;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import me.majiajie.pagerbottomtabstrip.NavigationController;
 import me.majiajie.pagerbottomtabstrip.PageBottomTabLayout;
@@ -35,7 +40,8 @@ import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 public class MainTabActivity extends BaseActivity implements BaseNetworkInterface {
     private NavigationController navigationController;
     private UserPresenter userPresenter;
-
+    private EaseConversationListFragment conversationListFragment;
+    private EaseContactListFragment contactListFragment;
     @Override
     public void preData() {
 //        userPresenter = new UserPresenter(this);
@@ -62,9 +68,34 @@ public class MainTabActivity extends BaseActivity implements BaseNetworkInterfac
         viewPager.setOffscreenPageLimit(4);
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
-        fragments.add(new DatabaseFragment());
-        fragments.add(new ContactsFragment());
-        fragments.add(new MineFragment());
+//        fragments.add(new DatabaseFragment());
+//        fragments.add(new ContactsFragment());
+//        fragments.add(new MineFragment());
+
+        conversationListFragment = new EaseConversationListFragment();
+        contactListFragment = new EaseContactListFragment();
+        fragments.add( conversationListFragment);
+        contactListFragment.setContactsMap(getContacts());
+        fragments.add(contactListFragment);
+        SettingsFragment settingFragment = new SettingsFragment();
+        fragments.add(settingFragment);
+
+        conversationListFragment.setConversationListItemClickListener(new EaseConversationListFragment.EaseConversationListItemClickListener() {
+
+            @Override
+            public void onListItemClicked(EMConversation conversation) {
+                startActivity(new Intent(MainTabActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, conversation.conversationId()));
+            }
+        });
+        contactListFragment.setContactListItemClickListener(new EaseContactListFragment.EaseContactListItemClickListener() {
+
+            @Override
+            public void onListItemClicked(EaseUser user) {
+                startActivity(new Intent(MainTabActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, user.getUsername()));
+            }
+        });
+
+
         viewPager.setAdapter(new MainTabAdapter(mContext, fragmentManager, fragments));
         //自动适配ViewPager页面切换
         navigationController.setupWithViewPager(viewPager);
@@ -83,7 +114,19 @@ public class MainTabActivity extends BaseActivity implements BaseNetworkInterfac
         });
 
     }
-
+    /**
+     * prepared users, password is "123456"
+     * you can use these user to test
+     * @return
+     */
+    private Map<String, EaseUser> getContacts(){
+        Map<String, EaseUser> contacts = new HashMap<String, EaseUser>();
+        for(int i = 1; i <= 10; i++){
+            EaseUser user = new EaseUser("easeuitest" + i);
+            contacts.put("easeuitest" + i, user);
+        }
+        return contacts;
+    }
     //设置报警的小红点
     private void setUnRead(boolean unReadread) {
         navigationController.setHasMessage(2, unReadread);

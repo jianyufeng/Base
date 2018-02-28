@@ -26,7 +26,7 @@ public class SplashActivity extends BaseActivity {
 
 
     private void goMainActivity() {
-        checkFile();
+//        checkFile();
         long absTime = System.currentTimeMillis() - tempTime;
         long holdTime = 0;
         if (absTime <= splashTime) {

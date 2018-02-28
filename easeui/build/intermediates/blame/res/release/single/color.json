@@ -1,0 +1,94 @@
+[
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_tint_spinner.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_thumb.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_seek_thumb.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\design_error.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\737fec5bbffe4ad6581a9a560483eafd1fada03d\\output\\res\\color\\design_error.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_text_material.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_search_url_text.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\design_tint_password_toggle.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\737fec5bbffe4ad6581a9a560483eafd1fada03d\\output\\res\\color\\design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\ksw_md_back_color.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\fa26014abc4eaa5be4d62356706afc0af2b72b46\\output\\res\\color\\ksw_md_back_color.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_light.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "F:\\myself\\Base\\easeui\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_default.xml",
+        "source": "C:\\Users\\16896\\.android\\build-cache\\a7c2ec104685a8fe53b6dc4ee0759a244ae93fbf\\output\\res\\color\\abc_tint_default.xml"
+    }
+]
