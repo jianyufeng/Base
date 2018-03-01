@@ -8,11 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 
 import com.android.base.R;
+import com.android.base.activity.login.bean.ModelUserInfo;
 import com.android.base.activity.present.UserPresenter;
 import com.android.base.adapter.MainTabAdapter;
 import com.android.base.constant.Constant;
 import com.android.base.fragment.HomeFragment;
-import com.android.base.model.user.ModelUserInfo;
 import com.android.base.view.TabView;
 import com.fpi.mobile.base.BaseActivity;
 import com.fpi.mobile.bean.ModelBase;
@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.majiajie.pagerbottomtabstrip.NavigationController;
-import me.majiajie.pagerbottomtabstrip.PageBottomTabLayout;
+import me.majiajie.pagerbottomtabstrip.PageNavigationView;
 import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
@@ -44,7 +44,7 @@ public class MainTabActivity extends BaseActivity implements BaseNetworkInterfac
     private EaseContactListFragment contactListFragment;
     @Override
     public void preData() {
-//        userPresenter = new UserPresenter(this);
+//        userPresenter = new UserRequest(this);
 
     }
 
@@ -57,7 +57,7 @@ public class MainTabActivity extends BaseActivity implements BaseNetworkInterfac
     }
 
     private void initView() {
-        PageBottomTabLayout tab = (PageBottomTabLayout) findViewById(R.id.tab_main);
+        PageNavigationView tab = (PageNavigationView) findViewById(R.id.tab_main);
         navigationController = tab.custom()
                 .addItem(newItem(R.mipmap.ic_menu1_1, R.mipmap.ic_menu1_2, "首页"))
                 .addItem(newItem(R.mipmap.ic_menu2_1, R.mipmap.ic_menu2_2, "资料库"))

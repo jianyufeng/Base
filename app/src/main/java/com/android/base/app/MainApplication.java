@@ -3,8 +3,8 @@ package com.android.base.app;
 
 import com.android.base.BuildConfig;
 import com.android.base.R;
+import com.android.base.activity.login.bean.ModelUserInfo;
 import com.android.base.constant.Constant;
-import com.android.base.model.user.ModelUserInfo;
 import com.fpi.mobile.base.BaseApplication;
 import com.fpi.mobile.bean.ModelUserBase;
 import com.fpi.mobile.constant.ServerUrl;
