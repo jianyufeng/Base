@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
+import com.android.base.activity.login.LoginActivity;
 import com.android.base.constant.Constant;
 import com.android.base.util.CheckAndTransportFile;
 import com.fpi.mobile.base.BaseActivity;
@@ -71,7 +72,8 @@ public class SplashActivity extends BaseActivity {
     private void checkPermissions() {
         //危险权限需要根据实际情况调整
         DangerousPermissions.PERMISSIONS = new String[]{
-                DangerousPermissions.STORAGE};
+                DangerousPermissions.STORAGE,DangerousPermissions.CAMERA,DangerousPermissions.LOCATION,
+               DangerousPermissions.MICROPHONE};
         permissionsHelper = new PermissionsHelper(this, PERMISSIONS);
         if (permissionsHelper.checkAllPermissions(PERMISSIONS)) {
             permissionsHelper.onDestroy();

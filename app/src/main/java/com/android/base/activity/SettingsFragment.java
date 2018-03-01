@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.base.R;
+import com.android.base.activity.login.LoginActivity;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 

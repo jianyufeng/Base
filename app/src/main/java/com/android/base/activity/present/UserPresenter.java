@@ -2,8 +2,8 @@ package com.android.base.activity.present;
 
 
 import com.android.base.R;
+import com.android.base.activity.login.bean.ModelUserInfo;
 import com.android.base.app.MainApplication;
-import com.android.base.model.user.ModelUserInfo;
 import com.android.base.network.UserInterface;
 import com.android.base.util.Encrypt;
 import com.fpi.mobile.network.BaseNetworkInterface;
