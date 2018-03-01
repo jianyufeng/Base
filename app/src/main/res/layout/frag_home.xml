@@ -24,10 +24,9 @@
                 android:textSize="@dimen/text_size_16" />
         </ScrollView>
     </com.android.base.view.ScrollViewLinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_below="@+id/tv_title"
         android:background="@color/c_21_60" />
+
 </RelativeLayout>
