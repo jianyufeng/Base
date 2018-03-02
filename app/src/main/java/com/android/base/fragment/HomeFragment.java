@@ -1,13 +1,12 @@
 package com.android.base.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.base.R;
-import com.android.base.app.MainApplication;
+import com.hyphenate.easeui.ui.EaseConversationListFragment;
+import com.hyphenate.util.NetUtils;
 
 
 /**
@@ -15,35 +14,24 @@ import com.android.base.app.MainApplication;
  * Created by 14165 on 2017/8/12.
  */
 
-public class HomeFragment extends LazyFragment {
-    private View mView;
+public class HomeFragment extends EaseConversationListFragment {
+    private TextView errorText;
 
     @Override
-    public void preData() {
-
+    protected void initView() {
+        super.initView();
+        View errorView = (LinearLayout) View.inflate(getActivity(),R.layout.em_chat_neterror_item, null);
+        errorItemContainer.addView(errorView);
+        errorText = (TextView) errorView.findViewById(R.id.tv_connect_errormsg);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        showToast("加载视图");
-        if (null == mView) {
-            initView(inflater, container);
+    protected void onConnectionDisconnected() {
+        super.onConnectionDisconnected();
+        if (NetUtils.hasNetwork(getActivity())){
+            errorText.setText(R.string.can_not_connect_chat_server_connection);
+        } else {
+            errorText.setText(R.string.the_current_network);
         }
-        ViewGroup group = (ViewGroup) mView.getParent();
-        if (group != null) {
-            group.removeAllViewsInLayout();
-        }
-        return mView;
-    }
-
-    private void initView(LayoutInflater inflater, ViewGroup container) {
-        mView = inflater.inflate(R.layout.frag_home, container, false);
-    }
-
-    @Override
-    protected void lazyLoad() {
-        Toast.makeText(MainApplication.getInstance(),"首页",Toast.LENGTH_SHORT).show();
-//        showToast("首页");
     }
 }

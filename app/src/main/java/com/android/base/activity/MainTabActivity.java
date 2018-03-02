@@ -12,6 +12,7 @@ import com.android.base.activity.login.bean.ModelUserInfo;
 import com.android.base.activity.present.UserPresenter;
 import com.android.base.adapter.MainTabAdapter;
 import com.android.base.constant.Constant;
+import com.android.base.fragment.DatabaseFragment;
 import com.android.base.fragment.HomeFragment;
 import com.android.base.view.TabView;
 import com.fpi.mobile.base.BaseActivity;
@@ -67,18 +68,17 @@ public class MainTabActivity extends BaseActivity implements BaseNetworkInterfac
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setOffscreenPageLimit(4);
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new HomeFragment());
-//        fragments.add(new DatabaseFragment());
-//        fragments.add(new ContactsFragment());
-//        fragments.add(new MineFragment());
-
-        conversationListFragment = new EaseConversationListFragment();
-        contactListFragment = new EaseContactListFragment();
+        conversationListFragment = new HomeFragment();
         fragments.add( conversationListFragment);
+        fragments.add(new DatabaseFragment());
+        contactListFragment = new EaseContactListFragment();
         contactListFragment.setContactsMap(getContacts());
         fragments.add(contactListFragment);
+//        fragments.add(new HomeFragment());
+//        fragments.add(new ContactsFragment());
         SettingsFragment settingFragment = new SettingsFragment();
         fragments.add(settingFragment);
+//        fragments.add(new MineFragment());
 
         conversationListFragment.setConversationListItemClickListener(new EaseConversationListFragment.EaseConversationListItemClickListener() {
 
