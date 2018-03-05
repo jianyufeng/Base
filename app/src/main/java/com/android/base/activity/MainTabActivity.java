@@ -18,7 +18,6 @@ import com.android.base.view.TabView;
 import com.fpi.mobile.base.BaseActivity;
 import com.fpi.mobile.bean.ModelBase;
 import com.fpi.mobile.network.BaseNetworkInterface;
-import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
@@ -79,14 +78,6 @@ public class MainTabActivity extends BaseActivity implements BaseNetworkInterfac
         SettingsFragment settingFragment = new SettingsFragment();
         fragments.add(settingFragment);
 //        fragments.add(new MineFragment());
-
-        conversationListFragment.setConversationListItemClickListener(new EaseConversationListFragment.EaseConversationListItemClickListener() {
-
-            @Override
-            public void onListItemClicked(EMConversation conversation) {
-                startActivity(new Intent(MainTabActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, conversation.conversationId()));
-            }
-        });
         contactListFragment.setContactListItemClickListener(new EaseContactListFragment.EaseContactListItemClickListener() {
 
             @Override
