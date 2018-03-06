@@ -488,7 +488,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         // register the event listener when enter the foreground
         EMClient.getInstance().chatManager().addMessageListener(this);
 
-        if(chatType == EaseConstant.CHATTYPE_GROUP){
+        if(chatType == EaseConstant.CHATTYPE_GROUP){ //群组移除@
             EaseAtMessageHelper.get().removeAtMeGroup(toChatUsername);
         }
     }
@@ -574,7 +574,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         });
     }
 
-    // implement methods in EMMessageListener
+    // implement methods in EMMessageListener  收到新消息
     @Override
     public void onMessageReceived(List<EMMessage> messages) {
         for (EMMessage message : messages) {
@@ -646,12 +646,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             }
             switch (itemId) {
             case ITEM_TAKE_PICTURE:
-                selectPicFromCamera();
+                selectPicFromCamera();//拍照
                 break;
             case ITEM_PICTURE:
-                selectPicFromLocal();
+                selectPicFromLocal(); //相册
                 break;
-            case ITEM_LOCATION:
+            case ITEM_LOCATION: //位置
                 startActivityForResult(new Intent(getActivity(), EaseBaiduMapActivity.class), REQUEST_CODE_MAP);
                 break;
 
@@ -693,7 +693,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     
 
     //send message
-    protected void sendTextMessage(String content) {
+    protected void sendTextMessage(String content) { //发送消息
         if(EaseAtMessageHelper.get().containsAtUsername(content)){
             sendAtMessage(content);
         }else{
