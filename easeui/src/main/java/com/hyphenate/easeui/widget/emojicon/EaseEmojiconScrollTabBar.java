@@ -16,6 +16,9 @@ import com.hyphenate.util.DensityUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 表情底部导航
+ */
 public class EaseEmojiconScrollTabBar extends RelativeLayout{
 
     private Context context;
@@ -50,7 +53,7 @@ public class EaseEmojiconScrollTabBar extends RelativeLayout{
      * add tab
      * @param icon
      */
-    public void addTab(int icon){
+    public void addTab(int icon){ //创建表情底部的导航快捷切换表情类型
         View tabView = View.inflate(context, R.layout.ease_scroll_tab_item, null);
         ImageView imageView = (ImageView) tabView.findViewById(R.id.iv_icon);
         imageView.setImageResource(icon);
@@ -75,14 +78,14 @@ public class EaseEmojiconScrollTabBar extends RelativeLayout{
      * remove tab
      * @param position
      */
-    public void removeTab(int position){
+    public void removeTab(int position){ //移除
         tabContainer.removeViewAt(position);
         tabList.remove(position);
     }
     
     public void selectedTo(int position){
-        scrollTo(position);
-        for (int i = 0; i < tabList.size(); i++) {
+        scrollTo(position);  //处理底部导航较多时滑动显示
+        for (int i = 0; i < tabList.size(); i++) {//设置底部导航的选中
             if (position == i) {
                 tabList.get(i).setBackgroundColor(getResources().getColor(R.color.emojicon_tab_selected));
             } else {
@@ -91,7 +94,7 @@ public class EaseEmojiconScrollTabBar extends RelativeLayout{
         }
     }
     
-    private void scrollTo(final int position){
+    private void scrollTo(final int position){ //滑动
         int childCount = tabContainer.getChildCount();
         if(position < childCount){
             scrollView.post(new Runnable() {

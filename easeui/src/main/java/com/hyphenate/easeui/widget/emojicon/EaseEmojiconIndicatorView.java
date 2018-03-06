@@ -51,7 +51,7 @@ public class EaseEmojiconIndicatorView extends LinearLayout{
     
     public void init(int count){
         dotViews = new ArrayList<ImageView>();
-        for(int i = 0 ; i < count ; i++){
+        for(int i = 0 ; i < count ; i++){ //动态添加指示器的点
             RelativeLayout rl = new RelativeLayout(context);
             LayoutParams params = new LayoutParams(dotHeight,dotHeight);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -76,7 +76,7 @@ public class EaseEmojiconIndicatorView extends LinearLayout{
             return;
         }
         for(int i = 0 ; i < dotViews.size() ; i++){
-            if(i >= count){
+            if(i >= count){  //超出当前 指示器 的先隐藏
                 dotViews.get(i).setVisibility(GONE);
                 ((View)dotViews.get(i).getParent()).setVisibility(GONE);
             }
@@ -85,7 +85,7 @@ public class EaseEmojiconIndicatorView extends LinearLayout{
                 ((View)dotViews.get(i).getParent()).setVisibility(VISIBLE);
             }
         }
-        if(count > dotViews.size()){
+        if(count > dotViews.size()){ //不够添加
             int diff = count - dotViews.size();
             for(int i = 0 ; i < diff ; i++){
                 RelativeLayout rl = new RelativeLayout(context);
@@ -114,7 +114,7 @@ public class EaseEmojiconIndicatorView extends LinearLayout{
         }
     }
     
-    public void selectTo(int position){
+    public void selectTo(int position){ //设置指示器的选中
         for(ImageView iv : dotViews){
             iv.setImageBitmap(unselectedBitmap);
         }
@@ -122,7 +122,7 @@ public class EaseEmojiconIndicatorView extends LinearLayout{
     }
     
     
-    public void selectTo(int startPosition, int targetPostion){
+    public void selectTo(int startPosition, int targetPostion){  //设置指示器的选中
         ImageView startView = dotViews.get(startPosition);
         ImageView targetView = dotViews.get(targetPostion);
         startView.setImageBitmap(unselectedBitmap);

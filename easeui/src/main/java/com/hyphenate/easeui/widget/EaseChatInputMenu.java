@@ -101,7 +101,7 @@ public class EaseChatInputMenu extends LinearLayout {
                 //添加表情数据
                 emojiconGroupList.add(new EaseEmojiconGroupEntity(R.drawable.ee_1,  Arrays.asList(EaseDefaultEmojiconDatas.getData())));
             }
-            //数据和视图绑定
+            //表情数据和视图绑定
             ((EaseEmojiconMenu)emojiconMenu).init(emojiconGroupList);
         }
         emojiconMenuContainer.addView(emojiconMenu);
