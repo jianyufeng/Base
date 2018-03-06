@@ -83,32 +83,38 @@ public abstract class EaseChatPrimaryMenuBase extends RelativeLayout{
         /**
          * when send button clicked
          * @param content
+         * 点击发送按钮
          */
         void onSendBtnClicked(String content);
         
         /**
          * when speak button is touched
+         * 触摸点击录制语音
          * @return
          */
         boolean onPressToSpeakBtnTouch(View v, MotionEvent event);
         
         /**
          * toggle on/off voice button
+         * 语音点击切换
          */
         void onToggleVoiceBtnClicked();
         
         /**
          * toggle on/off extend menu
+         * 加号 点击切换
          */
         void onToggleExtendClicked();
         
         /**
          * toggle on/off emoji icon
+         * 表情点击切换显示
          */
         void onToggleEmojiconClicked();
         
         /**
          * on text input is clicked
+         * 输入框点击
          */
         void onEditTextClicked();
         

@@ -71,7 +71,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         faceLayout.setOnClickListener(this);
         editText.setOnClickListener(this);
         editText.requestFocus();
-
+        //输入框 焦点变化时的 状态改变
         editText.setOnFocusChangeListener(new OnFocusChangeListener() {
 
             @Override
@@ -84,7 +84,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
             }
         });
-        // listen the text change
+        // listen the text change  输入框文本变化时显示发送按钮 或 加号
         editText.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -143,12 +143,12 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             }
         });
 
-
+        //按住说活
         buttonPressToSpeak.setOnTouchListener(new OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (listener != null) {
+                if (listener != null) {  //触摸点击  按住说话
                     return listener.onPressToSpeakBtnTouch(v, event);
                 }
                 return false;
@@ -167,7 +167,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
     /**
      * append emoji icon to editText
-     *
+     * 添加表情
      * @param emojiContent
      */
     public void onEmojiconInputEvent(CharSequence emojiContent) {
@@ -176,7 +176,9 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
     /**
      * delete emojicon
+     * 删除表情
      */
+    @Override
     public void onEmojiconDeleteEvent() {
         if (!TextUtils.isEmpty(editText.getText())) {
             KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
@@ -187,44 +189,43 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     /**
      * on clicked event
      *
-     * @param view
+     * @param view 输入及其相关控件的点击事件回调
      */
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.btn_send) {
-            if (listener != null) {
+        if (id == R.id.btn_send) { //发送按钮
+            if (listener != null) {  //发送回调
                 String s = editText.getText().toString();
                 editText.setText("");
                 listener.onSendBtnClicked(s);
             }
-        } else if (id == R.id.btn_set_mode_voice) {
-            setModeVoice();
-            showNormalFaceImage();
-            if (listener != null)
+        } else if (id == R.id.btn_set_mode_voice) { //点击语音按钮
+            setModeVoice();  //点击语音按钮逻辑显示处理
+            showNormalFaceImage();   //重置表情按钮状态
+            if (listener != null)  //点击进入语音录入状态
                 listener.onToggleVoiceBtnClicked();
-        } else if (id == R.id.btn_set_mode_keyboard) {
-            setModeKeyboard();
-            showNormalFaceImage();
-            if (listener != null)
+        } else if (id == R.id.btn_set_mode_keyboard) { //点击小键盘按钮
+            setModeKeyboard();  //显示输入框
+            showNormalFaceImage(); //重置表情按钮状态
+            if (listener != null)  // 点击退出语音录入状态
                 listener.onToggleVoiceBtnClicked();
-        } else if (id == R.id.btn_more) {
-            buttonSetModeVoice.setVisibility(View.VISIBLE);
-            buttonSetModeKeyboard.setVisibility(View.GONE);
-            edittext_layout.setVisibility(View.VISIBLE);
-            buttonPressToSpeak.setVisibility(View.GONE);
-            showNormalFaceImage();
-            if (listener != null)
+        } else if (id == R.id.btn_more) {  //点击 加号 按钮
+            buttonSetModeVoice.setVisibility(View.VISIBLE); //显示语音按钮
+            buttonSetModeKeyboard.setVisibility(View.GONE); //隐藏小键盘按钮
+            edittext_layout.setVisibility(View.VISIBLE); //显示输入框容器
+            buttonPressToSpeak.setVisibility(View.GONE); //隐藏 按住说话 容器
+            showNormalFaceImage();   //重置表情按钮状态
+            if (listener != null)   //点击加号 回调  切换显示扩展容器
                 listener.onToggleExtendClicked();
-        } else if (id == R.id.et_sendmessage) {
+        } else if (id == R.id.et_sendmessage) {  //点击输入框
             edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_active);
-            faceNormal.setVisibility(View.VISIBLE);
-            faceChecked.setVisibility(View.INVISIBLE);
-            if (listener != null)
+            showNormalFaceImage();  //重置表情按钮状态
+            if (listener != null)  //点击输入框的回调
                 listener.onEditTextClicked();
-        } else if (id == R.id.rl_face) {
+        } else if (id == R.id.rl_face) {   //点击表情显示切换
             toggleFaceImage();
-            if (listener != null) {
+            if (listener != null) {//表情切换回调
                 listener.onToggleEmojiconClicked();
             }
         } else {
@@ -234,32 +235,30 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
     /**
      * show voice icon when speak bar is touched
+     * 点击语音按钮
      */
     protected void setModeVoice() {
         hideKeyboard();
-        edittext_layout.setVisibility(View.GONE);
-        buttonSetModeVoice.setVisibility(View.GONE);
-        buttonSetModeKeyboard.setVisibility(View.VISIBLE);
-        buttonSend.setVisibility(View.GONE);
-        buttonMore.setVisibility(View.VISIBLE);
-        buttonPressToSpeak.setVisibility(View.VISIBLE);
-        faceNormal.setVisibility(View.VISIBLE);
-        faceChecked.setVisibility(View.INVISIBLE);
-
+        edittext_layout.setVisibility(View.GONE);  //隐藏输入框容器
+        buttonSetModeVoice.setVisibility(View.GONE);  //隐藏语音按钮
+        buttonSetModeKeyboard.setVisibility(View.VISIBLE); //显示键盘按钮
+        buttonSend.setVisibility(View.GONE);       // 发送按钮
+        buttonMore.setVisibility(View.VISIBLE);   //显示加号按钮
+        buttonPressToSpeak.setVisibility(View.VISIBLE); //显示 按住说话容器
     }
 
     /**
      * show keyboard
      */
     protected void setModeKeyboard() {
-        edittext_layout.setVisibility(View.VISIBLE);
-        buttonSetModeKeyboard.setVisibility(View.GONE);
-        buttonSetModeVoice.setVisibility(View.VISIBLE);
+        edittext_layout.setVisibility(View.VISIBLE); //显示输入框容器
+        buttonSetModeKeyboard.setVisibility(View.GONE); //隐藏键盘按钮
+        buttonSetModeVoice.setVisibility(View.VISIBLE); //显示语音按钮
         // mEditTextContent.setVisibility(View.VISIBLE);
-        editText.requestFocus();
+        editText.requestFocus();                        //输入聚焦
         // buttonSend.setVisibility(View.VISIBLE);
-        buttonPressToSpeak.setVisibility(View.GONE);
-        if (TextUtils.isEmpty(editText.getText())) {
+        buttonPressToSpeak.setVisibility(View.GONE);  //隐藏 按住说话
+        if (TextUtils.isEmpty(editText.getText())) {  //处理显示发送按钮
             buttonMore.setVisibility(View.VISIBLE);
             buttonSend.setVisibility(View.GONE);
         } else {
@@ -270,7 +269,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     }
 
 
-    protected void toggleFaceImage() {
+    protected void toggleFaceImage() { //反转表情是否点击选中
         if (faceNormal.getVisibility() == View.VISIBLE) {
             showSelectedFaceImage();
         } else {
@@ -278,12 +277,12 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         }
     }
 
-    private void showNormalFaceImage() {
+    private void showNormalFaceImage() { //显示表情未选中
         faceNormal.setVisibility(View.VISIBLE);
         faceChecked.setVisibility(View.INVISIBLE);
     }
 
-    private void showSelectedFaceImage() {
+    private void showSelectedFaceImage() {//显示表情选中
         faceNormal.setVisibility(View.INVISIBLE);
         faceChecked.setVisibility(View.VISIBLE);
     }
@@ -291,7 +290,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
     @Override
     public void onExtendMenuContainerHide() {
-        showNormalFaceImage();
+        showNormalFaceImage();//显示表情未选中逻辑
     }
 
     @Override

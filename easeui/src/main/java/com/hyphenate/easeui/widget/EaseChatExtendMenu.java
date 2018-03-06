@@ -1,8 +1,5 @@
 package com.hyphenate.easeui.widget;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -18,6 +15,9 @@ import android.widget.TextView;
 
 import com.hyphenate.easeui.R;
 import com.hyphenate.util.DensityUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Extend menu when user want send image, voice clip, etc
@@ -104,7 +104,7 @@ public class EaseChatExtendMenu extends GridView{
         private Context context;
 
         public ItemAdapter(Context context, List<ChatMenuItemModel> objects) {
-            super(context, 1, objects);
+            super(context, 0, objects);
             this.context = context;
         }
         
@@ -122,7 +122,7 @@ public class EaseChatExtendMenu extends GridView{
                 @Override
                 public void onClick(View v) {
                     if(getItem(position).clickListener != null){
-                        getItem(position).clickListener.onClick(getItem(position).id, v);
+                        getItem(position).clickListener.onClick(getItem(position).id, v); //点击事件的调用
                     }
                 }
             });

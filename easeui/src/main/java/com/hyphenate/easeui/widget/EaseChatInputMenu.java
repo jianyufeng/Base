@@ -1,9 +1,5 @@
 package com.hyphenate.easeui.widget;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
@@ -24,6 +20,10 @@ import com.hyphenate.easeui.widget.EaseChatPrimaryMenuBase.EaseChatPrimaryMenuLi
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenuBase;
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenuBase.EaseEmojiconMenuListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * input menu
@@ -64,12 +64,12 @@ public class EaseChatInputMenu extends LinearLayout {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         layoutInflater.inflate(R.layout.ease_widget_chat_input_menu, this);
-        primaryMenuContainer = (FrameLayout) findViewById(R.id.primary_menu_container);
-        emojiconMenuContainer = (FrameLayout) findViewById(R.id.emojicon_menu_container);
-        chatExtendMenuContainer = (FrameLayout) findViewById(R.id.extend_menu_container);
+        primaryMenuContainer = (FrameLayout) findViewById(R.id.primary_menu_container); //输入框容器
+        emojiconMenuContainer = (FrameLayout) findViewById(R.id.emojicon_menu_container);//表情容器
+        chatExtendMenuContainer = (FrameLayout) findViewById(R.id.extend_menu_container); //底部扩展容器
 
          // extend menu
-         chatExtendMenu = (EaseChatExtendMenu) findViewById(R.id.extend_menu);
+         chatExtendMenu = (EaseChatExtendMenu) findViewById(R.id.extend_menu); //底部扩展的菜单
         
 
     }
@@ -87,23 +87,27 @@ public class EaseChatInputMenu extends LinearLayout {
         }
         // primary menu, use default if no customized one
         if(chatPrimaryMenu == null){
+            //创建并添加输入框视图
             chatPrimaryMenu = (EaseChatPrimaryMenu) layoutInflater.inflate(R.layout.ease_layout_chat_primary_menu, null);
         }
         primaryMenuContainer.addView(chatPrimaryMenu);
 
         // emojicon menu, use default if no customized one
         if(emojiconMenu == null){
+            //创建表情视图容器并添加
             emojiconMenu = (EaseEmojiconMenu) layoutInflater.inflate(R.layout.ease_layout_emojicon_menu, null);
             if(emojiconGroupList == null){
                 emojiconGroupList = new ArrayList<EaseEmojiconGroupEntity>();
+                //添加表情数据
                 emojiconGroupList.add(new EaseEmojiconGroupEntity(R.drawable.ee_1,  Arrays.asList(EaseDefaultEmojiconDatas.getData())));
             }
+            //数据和视图绑定
             ((EaseEmojiconMenu)emojiconMenu).init(emojiconGroupList);
         }
         emojiconMenuContainer.addView(emojiconMenu);
 
-        processChatMenu();
-        chatExtendMenu.init();
+        processChatMenu(); //设置点击事件
+        chatExtendMenu.init(); //扩展设置数据适配器
         
         inited = true;
     }
@@ -161,7 +165,7 @@ public class EaseChatInputMenu extends LinearLayout {
     /**
      * register menu item
      * 
-     * @param name
+     * @param nameRes
      *            resource id of item name
      * @param drawableRes
      *            background of item
@@ -172,7 +176,7 @@ public class EaseChatInputMenu extends LinearLayout {
      */
     public void registerExtendMenuItem(int nameRes, int drawableRes, int itemId,
             EaseChatExtendMenuItemClickListener listener) {
-        chatExtendMenu.registerMenuItem(nameRes, drawableRes, itemId, listener);
+        chatExtendMenu.registerMenuItem(nameRes, drawableRes, itemId, listener); //
     }
 
 
@@ -245,7 +249,7 @@ public class EaseChatInputMenu extends LinearLayout {
      * insert text
      * @param text
      */
-    public void insertText(String text){
+    public void insertText(String text){ //输入框插入文本、表情
         getPrimaryMenu().onTextInsert(text);
     }
 

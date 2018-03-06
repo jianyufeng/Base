@@ -154,11 +154,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 //        messageList.setAvatarShape(1);
         listView = messageList.getListView();
 
-        extendMenuItemClickListener = new MyItemClickListener();
-        inputMenu = (EaseChatInputMenu) getView().findViewById(R.id.input_menu);
-        registerExtendMenuItem();
+        extendMenuItemClickListener = new MyItemClickListener(); //创建扩展菜单点击事件
+        inputMenu = (EaseChatInputMenu) getView().findViewById(R.id.input_menu); //聊天底部输入框及扩展的功能封装的容器
+        registerExtendMenuItem();  //设置扩展的菜单及点击事件
         // init input menu
-        inputMenu.init(null);
+        inputMenu.init(null); //初始化底部视图包括（输入，表情，扩展）
+        //设置回调
         inputMenu.setChatInputMenuListener(new ChatInputMenuListener() {
 
             @Override
@@ -260,7 +261,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     /**
      * register extend menu, item id need > 3 if you override this method and keep exist item
      */
-    protected void registerExtendMenuItem(){
+    protected void registerExtendMenuItem(){ //添加底部扩展的菜单
         for(int i = 0; i < itemStrings.length; i++){
             inputMenu.registerExtendMenuItem(itemStrings[i], itemdrawables[i], itemIds[i], extendMenuItemClickListener);
         }
