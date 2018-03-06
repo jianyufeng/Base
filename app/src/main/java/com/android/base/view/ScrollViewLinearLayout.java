@@ -36,8 +36,9 @@ public class ScrollViewLinearLayout extends LinearLayout implements View.OnTouch
     }
 
     protected void smoothScrollBy(int dx, int dy) {
+        //设置mScroller的滚动偏移量
         mScroller.startScroll(0, mScroller.getFinalY(), 0, dy);
-        invalidate();
+        invalidate();//这里必须调用invalidate()才能保证computeScroll()会被调用，否则不一定会刷新界面，看不到滚动效果
     }
 
     protected void smoothScrollTo(int fx, int fy) {
@@ -50,7 +51,7 @@ public class ScrollViewLinearLayout extends LinearLayout implements View.OnTouch
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         if (changed && isFirst) {
-            sv = (ScrollView) getChildAt(0);
+            sv = (ScrollView) getChildAt(0);//该自定义布局写入xml文件时，其子布局的第一个必须是ScrollView时，这里才能getChildAt(0），实例化ScrollView
             sv.setOverScrollMode(View.OVER_SCROLL_NEVER);
             sv.setOnTouchListener(this);
             isFirst = false;

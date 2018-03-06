@@ -186,47 +186,47 @@ public class EaseChatInputMenu extends LinearLayout {
 
             @Override
             public void onSendBtnClicked(String content) {
-                if (listener != null)
+                if (listener != null) //发送
                     listener.onSendMessage(content);
             }
 
             @Override
             public void onToggleVoiceBtnClicked() {
-                hideExtendMenuContainer();
+                hideExtendMenuContainer(); //点击语音按钮逻辑
             }
 
             @Override
             public void onToggleExtendClicked() {
-                toggleMore();
+                toggleMore();  //点击加号
             }
 
             @Override
             public void onToggleEmojiconClicked() {
-                toggleEmojicon();
+                toggleEmojicon();//点击表情
             }
 
             @Override
             public void onEditTextClicked() {
-                hideExtendMenuContainer();
+                hideExtendMenuContainer();//输入框点击  ？？？？？？？？
             }
 
 
             @Override
             public boolean onPressToSpeakBtnTouch(View v, MotionEvent event) {
-                if(listener != null){
+                if(listener != null){//按住说话
                     return listener.onPressToSpeakBtnTouch(v, event);
                 }
                 return false;
             }
         });
 
-        // emojicon menu
+        // emojicon menu  表情点击事件
         emojiconMenu.setEmojiconMenuListener(new EaseEmojiconMenuListener() {
 
             @Override
-            public void onExpressionClicked(EaseEmojicon emojicon) {
+            public void onExpressionClicked(EaseEmojicon emojicon) {//点击表情
                 if(emojicon.getType() != EaseEmojicon.Type.BIG_EXPRESSION){
-                    if(emojicon.getEmojiText() != null){
+                    if(emojicon.getEmojiText() != null){ //添加表情
                         chatPrimaryMenu.onEmojiconInputEvent(EaseSmileUtils.getSmiledText(context,emojicon.getEmojiText()));
                     }
                 }else{
@@ -237,7 +237,7 @@ public class EaseChatInputMenu extends LinearLayout {
             }
 
             @Override
-            public void onDeleteImageClicked() {
+            public void onDeleteImageClicked() { //点击删除
                 chatPrimaryMenu.onEmojiconDeleteEvent();
             }
         });
@@ -257,8 +257,8 @@ public class EaseChatInputMenu extends LinearLayout {
      * show or hide extend menu
      * 
      */
-    protected void toggleMore() {
-        if (chatExtendMenuContainer.getVisibility() == View.GONE) {
+    protected void toggleMore() {  //根据底部容器的显示状态 切换
+        if (chatExtendMenuContainer.getVisibility() == View.GONE) { //将要显示
             hideKeyboard();
             handler.postDelayed(new Runnable() {
                 public void run() {
@@ -267,7 +267,7 @@ public class EaseChatInputMenu extends LinearLayout {
                     emojiconMenu.setVisibility(View.GONE);
                 }
             }, 50);
-        } else {
+        } else {  //如果表情显示，则切换显示  否则隐藏
             if (emojiconMenu.getVisibility() == View.VISIBLE) {
                 emojiconMenu.setVisibility(View.GONE);
                 chatExtendMenu.setVisibility(View.VISIBLE);
@@ -312,11 +312,11 @@ public class EaseChatInputMenu extends LinearLayout {
     /**
      * hide extend menu
      */
-    public void hideExtendMenuContainer() {
-        chatExtendMenu.setVisibility(View.GONE);
-        emojiconMenu.setVisibility(View.GONE);
-        chatExtendMenuContainer.setVisibility(View.GONE);
-        chatPrimaryMenu.onExtendMenuContainerHide();
+    public void hideExtendMenuContainer() { //只显示 按住说话
+        chatExtendMenu.setVisibility(View.GONE); //隐藏扩展功能
+        emojiconMenu.setVisibility(View.GONE);  //隐藏表情容器
+        chatExtendMenuContainer.setVisibility(View.GONE); //隐藏底部容器
+        chatPrimaryMenu.onExtendMenuContainerHide();  //重置表情按钮状态
     }
 
     /**

@@ -164,11 +164,11 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
             @Override
             public void onSendMessage(String content) {
-                sendTextMessage(content);
+                sendTextMessage(content);//发送消息
             }
 
             @Override
-            public boolean onPressToSpeakBtnTouch(View v, MotionEvent event) {
+            public boolean onPressToSpeakBtnTouch(View v, MotionEvent event) { //录制语音
                 return voiceRecorderView.onPressToSpeakBtnTouch(v, event, new EaseVoiceRecorderCallback() {
                     
                     @Override
@@ -179,7 +179,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             }
 
             @Override
-            public void onBigExpressionClicked(EaseEmojicon emojicon) {
+            public void onBigExpressionClicked(EaseEmojicon emojicon) { //发送 大表情
                 sendBigExpressionMessage(emojicon.getName(), emojicon.getIdentityCode());
             }
         });
@@ -192,33 +192,33 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        if (isRoaming) {
+        if (isRoaming) {//漫游
             fetchQueue = Executors.newSingleThreadExecutor();
         }
     }
 
     protected void setUpView() {
-        titleBar.setTitle(toChatUsername);
-        if (chatType == EaseConstant.CHATTYPE_SINGLE) {
+        titleBar.setTitle(toChatUsername);//设置标题
+        if (chatType == EaseConstant.CHATTYPE_SINGLE) {//单聊
             // set title
-            if(EaseUserUtils.getUserInfo(toChatUsername) != null){
+            if(EaseUserUtils.getUserInfo(toChatUsername) != null){//设置昵称
                 EaseUser user = EaseUserUtils.getUserInfo(toChatUsername);
                 if (user != null) {
                     titleBar.setTitle(user.getNick());
                 }
             }
             titleBar.setRightImageResource(R.drawable.ease_mm_title_remove);
-        } else {
+        } else {  //群组 或 聊天室
         	titleBar.setRightImageResource(R.drawable.ease_to_group_details_normal);
-            if (chatType == EaseConstant.CHATTYPE_GROUP) {
+            if (chatType == EaseConstant.CHATTYPE_GROUP) { //群组
                 //group chat
                 EMGroup group = EMClient.getInstance().groupManager().getGroup(toChatUsername);
                 if (group != null)
                     titleBar.setTitle(group.getGroupName());
                 // listen the event that user moved out group or group is dismissed
-                groupListener = new GroupListener();
+                groupListener = new GroupListener(); //设置群组监听  被移除群组或者群组解散
                 EMClient.getInstance().groupManager().addGroupChangeListener(groupListener);
-            } else {
+            } else { //设置聊天室监听
                 chatRoomListener = new ChatRoomListener();
                 EMClient.getInstance().chatroomManager().addChatRoomChangeListener(chatRoomListener);
                 onChatRoomViewCreation();
@@ -234,14 +234,14 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                onBackPressed(); //返回键
             }
         });
         titleBar.setRightLayoutClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (chatType == EaseConstant.CHATTYPE_SINGLE) {
+                if (chatType == EaseConstant.CHATTYPE_SINGLE) { //右上角点击事件
                     emptyHistory();
                 } else {
                     toGroupDetails();
@@ -249,7 +249,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             }
         });
 
-        setRefreshLayoutListener();
+        setRefreshLayoutListener();//设置加载更多消息
         
         // show forward message if the message is not null
         String forward_msg_id = getArguments().getString("forward_msg_id");
@@ -313,7 +313,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         messageList.init(toChatUsername, chatType, chatFragmentHelper != null ? 
                 chatFragmentHelper.onSetCustomChatRowProvider() : null);
         setListItemClickListener();
-        
+        //聊天列表触摸事件
         messageList.getListView().setOnTouchListener(new OnTouchListener() {
 
             @Override
@@ -327,7 +327,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         isMessageListInited = true;
     }
     
-    protected void setListItemClickListener() {
+    protected void setListItemClickListener() { //设置聊天消息点击事件
         messageList.setItemClickListener(new EaseChatMessageList.MessageListItemClickListener() {
             
             @Override
@@ -383,7 +383,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         });
     }
 
-    private void loadMoreLocalMessage() {
+    private void loadMoreLocalMessage() { //加载本地聊天消息
         if (listView.getFirstVisiblePosition() == 0 && !isloading && haveMoreData) {
             List<EMMessage> messages;
             try {
