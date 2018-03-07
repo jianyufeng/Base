@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.android.base.view.ScrollViewLinearLayout
+    <com.android.base.view.DragScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,7 +23,7 @@
                 android:textColor="@color/c_title"
                 android:textSize="@dimen/text_size_16" />
         </ScrollView>
-    </com.android.base.view.ScrollViewLinearLayout>
+    </com.android.base.view.DragScrollView>
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"

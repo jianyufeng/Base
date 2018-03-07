@@ -34,7 +34,7 @@ public class DatabaseFragment extends LazyFragment {
     }
 
     private void initView(LayoutInflater inflater, ViewGroup container) {
-        mView = inflater.inflate(R.layout.frag_alarm, container, false);
+        mView = inflater.inflate(R.layout.frag_home, container, false);
     }
 
 
