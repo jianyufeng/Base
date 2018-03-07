@@ -198,16 +198,22 @@ public class EaseChatInputMenu extends LinearLayout {
             @Override
             public void onToggleExtendClicked() {
                 toggleMore();  //点击加号
+                if (listener != null) //移动到消息底部
+                    listener.moveBottom();
             }
 
             @Override
             public void onToggleEmojiconClicked() {
                 toggleEmojicon();//点击表情
+                if (listener != null) //移动到消息底部
+                    listener.moveBottom();
             }
 
             @Override
             public void onEditTextClicked() {
-                hideExtendMenuContainer();//输入框点击  ？？？？？？？？
+                hideExtendMenuContainer();//输入框点击
+                if (listener != null) //移动到消息底部
+                    listener.moveBottom();
             }
 
 
@@ -362,6 +368,10 @@ public class EaseChatInputMenu extends LinearLayout {
          * @return
          */
         boolean onPressToSpeakBtnTouch(View v, MotionEvent event);
+        /**
+         *  准备发送消息
+         */
+        void moveBottom();
     }
     
 }

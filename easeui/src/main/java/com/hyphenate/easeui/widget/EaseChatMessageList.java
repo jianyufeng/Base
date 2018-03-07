@@ -102,6 +102,14 @@ public class EaseChatMessageList extends RelativeLayout{
             messageAdapter.refreshSelectLast();
         }
     }
+    /**
+     * refresh and jump to the last
+     */
+    public void seekLast(){
+        if (messageAdapter != null) {
+            messageAdapter.seekLast();
+        }
+    }
     
     /**
      * refresh and jump to the position

@@ -169,6 +169,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
             @Override
             public boolean onPressToSpeakBtnTouch(View v, MotionEvent event) { //录制语音
+                if(isMessageListInited && event.getAction()==MotionEvent.ACTION_DOWN) {
+                    messageList.seekLast();
+                }
                 return voiceRecorderView.onPressToSpeakBtnTouch(v, event, new EaseVoiceRecorderCallback() {
                     
                     @Override
@@ -176,6 +179,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                         sendVoiceMessage(voiceFilePath, voiceTimeLength);
                     }
                 });
+            }
+
+            @Override
+            public void moveBottom() {
+                if(isMessageListInited) {
+                    messageList.seekLast();
+                }
             }
 
             @Override

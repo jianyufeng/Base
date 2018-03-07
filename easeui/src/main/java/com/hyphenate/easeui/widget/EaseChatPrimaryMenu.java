@@ -71,6 +71,13 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         faceLayout.setOnClickListener(this);
         editText.setOnClickListener(this);
         editText.requestFocus();
+        editText.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.requestFocus();
+                return false;
+            }
+        });
         //输入框 焦点变化时的 状态改变
         editText.setOnFocusChangeListener(new OnFocusChangeListener() {
 
@@ -215,6 +222,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             buttonSetModeKeyboard.setVisibility(View.GONE); //隐藏小键盘按钮
             edittext_layout.setVisibility(View.VISIBLE); //显示输入框容器
             buttonPressToSpeak.setVisibility(View.GONE); //隐藏 按住说话 容器
+            edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_normal);
             showNormalFaceImage();   //重置表情按钮状态
             if (listener != null)   //点击加号 回调  切换显示扩展容器
                 listener.onToggleExtendClicked();
@@ -225,6 +233,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                 listener.onEditTextClicked();
         } else if (id == R.id.rl_face) {   //点击表情显示切换
             toggleFaceImage();
+            edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_normal);
             if (listener != null) {//表情切换回调
                 listener.onToggleEmojiconClicked();
             }

@@ -142,6 +142,13 @@ public class EaseMessageAdapter extends BaseAdapter{
     }
     
     /**
+     * seek to last
+     */
+    public void seekLast() {
+		handler.removeMessages(HANDLER_MESSAGE_SELECT_LAST);
+	    handler.sendEmptyMessageDelayed(HANDLER_MESSAGE_SELECT_LAST,100);
+    }
+    /**
      * refresh and seek to the position
      */
     public void refreshSeekTo(int position) {
