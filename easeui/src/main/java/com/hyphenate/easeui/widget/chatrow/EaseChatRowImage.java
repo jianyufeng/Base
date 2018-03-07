@@ -17,6 +17,9 @@ import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.utils.EaseImageUtils;
 import java.io.File;
 
+/**
+ *  图片视图
+ */
 public class EaseChatRowImage extends EaseChatRowFile{
 
     protected ImageView imageView;
@@ -48,13 +51,13 @@ public class EaseChatRowImage extends EaseChatRowFile{
         }
 
         String filePath = imgBody.getLocalUrl();
-        String thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
-        showImageView(thumbPath, filePath, message);
+        String thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl()); //获取发送图片的缩略图
+        showImageView(thumbPath, filePath, message);  //设置图片
     }
 
     @Override
     protected void onViewUpdate(EMMessage msg) {
-        if (msg.direct() == EMMessage.Direct.SEND) {
+        if (msg.direct() == EMMessage.Direct.SEND) {  //发送的图片设置
             if(EMClient.getInstance().getOptions().getAutodownloadThumbnail()){
                 super.onViewUpdate(msg);
             }else{

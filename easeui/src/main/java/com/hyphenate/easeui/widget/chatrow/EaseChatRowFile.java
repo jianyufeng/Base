@@ -1,7 +1,6 @@
 package com.hyphenate.easeui.widget.chatrow;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMNormalFileMessageBody;
 import com.hyphenate.easeui.R;
-import com.hyphenate.util.EMLog;
 import com.hyphenate.util.TextFormater;
 
 import java.io.File;
@@ -45,9 +43,9 @@ public class EaseChatRowFile extends EaseChatRow{
 	@Override
 	protected void onSetUpView() {
 	    fileMessageBody = (EMNormalFileMessageBody) message.getBody();
-        String filePath = fileMessageBody.getLocalUrl();
-        fileNameView.setText(fileMessageBody.getFileName());
-        fileSizeView.setText(TextFormater.getDataSize(fileMessageBody.getFileSize()));
+        String filePath = fileMessageBody.getLocalUrl();  //文件本地路径
+        fileNameView.setText(fileMessageBody.getFileName());//文件名
+        fileSizeView.setText(TextFormater.getDataSize(fileMessageBody.getFileSize())); //文件大小
         if (message.direct() == EMMessage.Direct.RECEIVE) {
             File file = new File(filePath);
             if (file.exists()) {

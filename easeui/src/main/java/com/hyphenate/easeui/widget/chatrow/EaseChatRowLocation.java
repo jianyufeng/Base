@@ -1,7 +1,6 @@
 package com.hyphenate.easeui.widget.chatrow;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
@@ -9,9 +8,11 @@ import android.widget.TextView;
 import com.hyphenate.chat.EMLocationMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.R;
-import com.hyphenate.easeui.ui.EaseBaiduMapActivity;
 import com.hyphenate.util.LatLng;
 
+/**
+ * 位置视图
+ */
 public class EaseChatRowLocation extends EaseChatRow{
 
     private TextView locationView;
@@ -22,7 +23,7 @@ public class EaseChatRowLocation extends EaseChatRow{
     }
 
     @Override
-    protected void onInflateView() {
+    protected void onInflateView() { //位置视图
         inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
                 R.layout.ease_row_received_location : R.layout.ease_row_sent_location, this);
     }

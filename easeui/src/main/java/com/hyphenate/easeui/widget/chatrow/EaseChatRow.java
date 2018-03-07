@@ -26,6 +26,9 @@ import com.hyphenate.util.DateUtils;
 
 import java.util.Date;
 
+/**
+ * 聊天类型显示基类
+ */
 public abstract class EaseChatRow extends LinearLayout {
     public interface EaseChatRowActionCallback {
         void onResendClick(EMMessage message);
@@ -83,24 +86,24 @@ public abstract class EaseChatRow extends LinearLayout {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                onViewUpdate(msg);
+                onViewUpdate(msg);  //更新消息状态视图
             }
         });
     }
 
     private void initView() {
-        onInflateView();
-        timeStampView = (TextView) findViewById(R.id.timestamp);
-        userAvatarView = (ImageView) findViewById(R.id.iv_userhead);
-        bubbleLayout = findViewById(R.id.bubble);
-        usernickView = (TextView) findViewById(R.id.tv_userid);
+        onInflateView();  //加载布局
+        timeStampView = (TextView) findViewById(R.id.timestamp); //时间
+        userAvatarView = (ImageView) findViewById(R.id.iv_userhead); //用户图像
+        bubbleLayout = findViewById(R.id.bubble);  //聊天气泡
+        usernickView = (TextView) findViewById(R.id.tv_userid); //昵称
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        statusView = (ImageView) findViewById(R.id.msg_status);
-        ackedView = (TextView) findViewById(R.id.tv_ack);
-        deliveredView = (TextView) findViewById(R.id.tv_delivered);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar); //发送进度
+        statusView = (ImageView) findViewById(R.id.msg_status);  //发送状态
+        ackedView = (TextView) findViewById(R.id.tv_ack);    //消息已读
+        deliveredView = (TextView) findViewById(R.id.tv_delivered); //消息送达
 
-        onFindViewById();
+        onFindViewById();    //查找空间控件
     }
 
     /**
@@ -119,21 +122,21 @@ public abstract class EaseChatRow extends LinearLayout {
         this.itemActionCallback = itemActionCallback;
         this.itemStyle = itemStyle;
 
-        setUpBaseView();
-        onSetUpView();
-        setClickListener();
+        setUpBaseView();  //设置基本信息  数据填充
+        onSetUpView();  //扩展数据填充
+        setClickListener(); //设置监听事件
     }
 
     private void setUpBaseView() {
     	// set nickname, avatar and background of bubble
         TextView timestamp = (TextView) findViewById(R.id.timestamp);
-        if (timestamp != null) {
-            if (position == 0) {
+        if (timestamp != null) {   //显示时间
+            if (position == 0) {  //第一条item
                 timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
                 timestamp.setVisibility(View.VISIBLE);
             } else {
             	// show time stamp if interval with last message is > 30 seconds
-                EMMessage prevMessage = (EMMessage) adapter.getItem(position - 1);
+                EMMessage prevMessage = (EMMessage) adapter.getItem(position - 1); //比较相邻消息的时间是否大于30秒 显示
                 if (prevMessage != null && DateUtils.isCloseEnough(message.getMsgTime(), prevMessage.getMsgTime())) {
                     timestamp.setVisibility(View.GONE);
                 } else {
@@ -142,7 +145,7 @@ public abstract class EaseChatRow extends LinearLayout {
                 }
             }
         }
-        if(userAvatarView != null) {
+        if(userAvatarView != null) {  //设置图像用户
             //set nickname and avatar
             if (message.direct() == Direct.SEND) {
                 EaseUserUtils.setUserAvatar(context, EMClient.getInstance().getCurrentUser(), userAvatarView);
@@ -151,7 +154,7 @@ public abstract class EaseChatRow extends LinearLayout {
                 EaseUserUtils.setUserNick(message.getFrom(), usernickView);
             }
         }
-        if (EMClient.getInstance().getOptions().getRequireDeliveryAck()) {
+        if (EMClient.getInstance().getOptions().getRequireDeliveryAck()) {  //消息送达提醒
             if(deliveredView != null){
                 if (message.isDelivered()) {
                     deliveredView.setVisibility(View.VISIBLE);
@@ -160,7 +163,7 @@ public abstract class EaseChatRow extends LinearLayout {
                 }
             }
         }
-        if (EMClient.getInstance().getOptions().getRequireAck()) {
+        if (EMClient.getInstance().getOptions().getRequireAck()) { //消息已读提醒
             if (ackedView != null) {
                 if (message.isAcked()) {
                     if (deliveredView != null) {
@@ -174,7 +177,7 @@ public abstract class EaseChatRow extends LinearLayout {
         }
 
         if (itemStyle != null) {
-            if (userAvatarView != null) {
+            if (userAvatarView != null) {    //根据配置设置图像形状
                 if (itemStyle.isShowAvatar()) {
                     userAvatarView.setVisibility(View.VISIBLE);
                     EaseAvatarOptions avatarOptions = EaseUI.getInstance().getAvatarOptions();
@@ -193,13 +196,13 @@ public abstract class EaseChatRow extends LinearLayout {
                     userAvatarView.setVisibility(View.GONE);
                 }
             }
-            if (usernickView != null) {
+            if (usernickView != null) {    //根据配置设置昵称是否显示
                 if (itemStyle.isShowUserNick())
                     usernickView.setVisibility(View.VISIBLE);
                 else
                     usernickView.setVisibility(View.GONE);
             }
-            if (bubbleLayout != null) {
+            if (bubbleLayout != null) {     //根据配置设置聊天气泡
                 if (message.direct() == Direct.SEND) {
                     if (itemStyle.getMyBubbleBg() != null) {
                         bubbleLayout.setBackgroundDrawable(((EaseMessageAdapter) adapter).getMyBubbleBg());
@@ -215,7 +218,7 @@ public abstract class EaseChatRow extends LinearLayout {
     }
 
     private void setClickListener() {
-        if(bubbleLayout != null){
+        if(bubbleLayout != null){  //气泡点击事件
             bubbleLayout.setOnClickListener(new OnClickListener() {
     
                 @Override
@@ -229,7 +232,7 @@ public abstract class EaseChatRow extends LinearLayout {
                 }
             });
     
-            bubbleLayout.setOnLongClickListener(new OnLongClickListener() {
+            bubbleLayout.setOnLongClickListener(new OnLongClickListener() {//气泡长按事件
     
                 @Override
                 public boolean onLongClick(View v) {
@@ -241,7 +244,7 @@ public abstract class EaseChatRow extends LinearLayout {
             });
         }
 
-        if (statusView != null) {
+        if (statusView != null) {   //重新发送点击事件
             statusView.setOnClickListener(new OnClickListener() {
 
                 @Override
@@ -253,21 +256,21 @@ public abstract class EaseChatRow extends LinearLayout {
             });
         }
 
-        if(userAvatarView != null){
+        if(userAvatarView != null){   //用户图像点击事件
             userAvatarView.setOnClickListener(new OnClickListener() {
     
                 @Override
                 public void onClick(View v) {
                     if (itemClickListener != null) {
-                        if (message.direct() == Direct.SEND) {
+                        if (message.direct() == Direct.SEND) { //自己
                             itemClickListener.onUserAvatarClick(EMClient.getInstance().getCurrentUser());
-                        } else {
+                        } else { //发送方
                             itemClickListener.onUserAvatarClick(message.getFrom());
                         }
                     }
                 }
             });
-            userAvatarView.setOnLongClickListener(new OnLongClickListener() {
+            userAvatarView.setOnLongClickListener(new OnLongClickListener() {  //用户图像长按事件
                 
                 @Override
                 public boolean onLongClick(View v) {

@@ -39,15 +39,15 @@ import java.util.Map;
  *
  */
 public class EaseConversationListFragment extends EaseBaseFragment{
-	private final static int MSG_REFRESH = 2;
-    protected EditText query;
-    protected ImageButton clearSearch;
-    protected boolean hidden;
-    protected List<EMConversation> conversationList = new ArrayList<EMConversation>();
-    protected EaseConversationList conversationListView;
-    protected FrameLayout errorItemContainer;
+	private final static int MSG_REFRESH = 2;   //刷新信号
+    protected EditText query;      //搜索输入框
+    protected ImageButton clearSearch; //清空输入框
+    protected boolean hidden;  //当前视图隐藏标志
+    protected List<EMConversation> conversationList = new ArrayList<EMConversation>(); //会话数据
+    protected EaseConversationList conversationListView;  //容器
+    protected FrameLayout errorItemContainer;   // 服务连接异常提醒
 
-    protected boolean isConflict;
+    protected boolean isConflict;  //是否被踢出... 表示不能登录所以不可以获取数据，被拒绝连接服务
     
     protected EMConversationListener convListener = new EMConversationListener(){
 
@@ -74,7 +74,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
     protected void initView() {
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         conversationListView = (EaseConversationList) getView().findViewById(R.id.list);
-        query = (EditText) getView().findViewById(R.id.query);
+        query = (EditText) getView().findViewById(R.id.query); //搜索输入框
         // button to clear content in search bar
         clearSearch = (ImageButton) getView().findViewById(R.id.search_clear);
         errorItemContainer = (FrameLayout) getView().findViewById(R.id.fl_error_item);
@@ -82,10 +82,10 @@ public class EaseConversationListFragment extends EaseBaseFragment{
     
     @Override
     protected void setUpView() {
-        conversationList.addAll(loadConversationList());
-        conversationListView.init(conversationList);
+        conversationList.addAll(loadConversationList()); //获取会话数据
+        conversationListView.init(conversationList);  //ListView 初始化数据及设置适配器
         
-        if(listItemClickListener != null){
+        if(listItemClickListener != null){  //对外提供的点击事件
             conversationListView.setOnItemClickListener(new OnItemClickListener() {
 
                 @Override
@@ -96,9 +96,9 @@ public class EaseConversationListFragment extends EaseBaseFragment{
             });
         }
         
-        EMClient.getInstance().addConnectionListener(connectionListener);
+        EMClient.getInstance().addConnectionListener(connectionListener);  //添加服务器连接监听
         
-        query.addTextChangedListener(new TextWatcher() {
+        query.addTextChangedListener(new TextWatcher() {   //设置会话筛选
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 conversationListView.filter(s);
                 if (s.length() > 0) {
@@ -114,7 +114,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
             public void afterTextChanged(Editable s) {
             }
         });
-        clearSearch.setOnClickListener(new OnClickListener() {
+        clearSearch.setOnClickListener(new OnClickListener() { //清空筛选
             @Override
             public void onClick(View v) {
                 query.getText().clear();
@@ -122,7 +122,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
             }
         });
         
-        conversationListView.setOnTouchListener(new OnTouchListener() {
+        conversationListView.setOnTouchListener(new OnTouchListener() {  //会话容器设置触摸监听
             
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -162,7 +162,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
                 onConnectionConnected();
                 break;
             
-            case MSG_REFRESH:
+            case MSG_REFRESH:  //刷新会话
 	            {
 	            	conversationList.clear();
 	                conversationList.addAll(loadConversationList());
@@ -201,7 +201,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
     
     /**
      * load conversation list
-     * 
+     *  获取会话
      * @return
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         +    */
     protected List<EMConversation> loadConversationList(){
@@ -234,7 +234,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
 
     /**
      * sort conversations according time stamp of last message
-     * 
+     *  排序会话
      * @param conversationList
      */
     private void sortConversationByLastChatTime(List<Pair<Long, EMConversation>> conversationList) {
@@ -254,7 +254,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
         });
     }
     
-   protected void hideSoftKeyboard() {
+   protected void hideSoftKeyboard() {  //隐藏软键盘
         if (getActivity().getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
             if (getActivity().getCurrentFocus() != null)
                 inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
@@ -282,7 +282,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EMClient.getInstance().removeConnectionListener(connectionListener);
+        EMClient.getInstance().removeConnectionListener(connectionListener);//移除监听事件
     }
     
     @Override

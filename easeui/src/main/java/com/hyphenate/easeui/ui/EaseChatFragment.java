@@ -277,11 +277,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         if (!isRoaming) {
             final List<EMMessage> msgs = conversation.getAllMessages();
             int msgCount = msgs != null ? msgs.size() : 0;
-            if (msgCount < conversation.getAllMsgCount() && msgCount < pagesize) {
+            if (msgCount < conversation.getAllMsgCount() && msgCount < pagesize) { //没有获取到全部数据  且不足一页数据，要从数据库加载数据
                 String msgId = null;
                 if (msgs != null && msgs.size() > 0) {
                     msgId = msgs.get(0).getMsgId();
                 }
+                //加载数据库数据到内存
                 conversation.loadMoreMsgFromDB(msgId, pagesize - msgCount);
             }
         } else {
@@ -386,7 +387,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     private void loadMoreLocalMessage() { //加载本地聊天消息
         if (listView.getFirstVisiblePosition() == 0 && !isloading && haveMoreData) {
             List<EMMessage> messages;
-            try {
+            try {  //从数据库加载数据
                 messages = conversation.loadMoreMsgFromDB(conversation.getAllMessages().size() == 0 ? "" : conversation.getAllMessages().get(0).getMsgId(),
                         pagesize);
             } catch (Exception e1) {
@@ -755,7 +756,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         sendMessage(message);
     }
     
-    
+    //发送消息
     protected void sendMessage(EMMessage message){
         if (message == null) {
             return;
@@ -952,6 +953,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         EMMessage.Type type = forward_msg.getType();
         switch (type) {
         case TXT:
+            //获取扩展属性
             if(forward_msg.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
                 sendBigExpressionMessage(((EMTextMessageBody) forward_msg.getBody()).getMessage(),
                         forward_msg.getStringAttribute(EaseConstant.MESSAGE_ATTR_EXPRESSION_ID, null));

@@ -92,7 +92,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 	}
 
 	Handler handler = new Handler() {
-		private void refreshList() {
+		private void refreshList() {  //刷新数据
 			// you should not call getAllMessages() in UI thread
 			// otherwise there is problem when refreshing UI and there is new message arrive
 			java.util.List<EMMessage> var = conversation.getAllMessages();
@@ -105,14 +105,14 @@ public class EaseMessageAdapter extends BaseAdapter{
 		public void handleMessage(android.os.Message message) {
 			switch (message.what) {
 			case HANDLER_MESSAGE_REFRESH_LIST:
-				refreshList();
+				refreshList();  //刷新
 				break;
 			case HANDLER_MESSAGE_SELECT_LAST:
                 if (messages != null && messages.length > 0) {
-	                listView.setSelection(messages.length - 1);
+	                listView.setSelection(messages.length - 1);  //滑动到底部
                 }
                 break;
-            case HANDLER_MESSAGE_SEEK_TO:
+            case HANDLER_MESSAGE_SEEK_TO:  //定位到某个位置
 	            int position = message.arg1;
 	            listView.setSelection(position);
                 break;
@@ -122,7 +122,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 		}
 	};
 
-	public void refresh() {
+	public void refresh() {  //刷新
 		if (handler.hasMessages(HANDLER_MESSAGE_REFRESH_LIST)) {
 			return;
 		}
@@ -133,7 +133,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 	/**
      * refresh and select the last
      */
-    public void refreshSelectLast() {
+    public void refreshSelectLast() { //刷新并且定位到底部
         final int TIME_DELAY_REFRESH_SELECT_LAST = 100;
         handler.removeMessages(HANDLER_MESSAGE_REFRESH_LIST);
         handler.removeMessages(HANDLER_MESSAGE_SELECT_LAST);
@@ -169,7 +169,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 	/**
 	 * get number of message type, here 14 = (EMMessage.Type) * 2
 	 */
-	public int getViewTypeCount() {
+	public int getViewTypeCount() { //获取消息类型
 	    if(customRowProvider != null && customRowProvider.getCustomChatRowTypeCount() > 0){
 	        return customRowProvider.getCustomChatRowTypeCount() + 14;
 	    }
@@ -190,26 +190,26 @@ public class EaseMessageAdapter extends BaseAdapter{
 		    return customRowProvider.getCustomChatRowType(message) + 13;
 		}
 		
-		if (message.getType() == EMMessage.Type.TXT) {
+		if (message.getType() == EMMessage.Type.TXT) {  //文本类型
 		    if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
 		        return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXPRESSION : MESSAGE_TYPE_SENT_EXPRESSION;
 		    }
 			return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_TXT : MESSAGE_TYPE_SENT_TXT;
 		}
-		if (message.getType() == EMMessage.Type.IMAGE) {
+		if (message.getType() == EMMessage.Type.IMAGE) { //图片类型
 			return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_IMAGE : MESSAGE_TYPE_SENT_IMAGE;
 
 		}
-		if (message.getType() == EMMessage.Type.LOCATION) {
+		if (message.getType() == EMMessage.Type.LOCATION) {  //位置类型
 			return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_LOCATION : MESSAGE_TYPE_SENT_LOCATION;
 		}
-		if (message.getType() == EMMessage.Type.VOICE) {
+		if (message.getType() == EMMessage.Type.VOICE) {  //语音类型
 			return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VOICE : MESSAGE_TYPE_SENT_VOICE;
 		}
-		if (message.getType() == EMMessage.Type.VIDEO) {
+		if (message.getType() == EMMessage.Type.VIDEO) {  //视频类型
 			return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VIDEO : MESSAGE_TYPE_SENT_VIDEO;
 		}
-		if (message.getType() == EMMessage.Type.FILE) {
+		if (message.getType() == EMMessage.Type.FILE) {  //文件类型
 			return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_FILE : MESSAGE_TYPE_SENT_FILE;
 		}
 
@@ -228,23 +228,23 @@ public class EaseMessageAdapter extends BaseAdapter{
             if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
 				presenter = new EaseChatBigExpressionPresenter();
             }else{
-				presenter = new EaseChatTextPresenter();
+				presenter = new EaseChatTextPresenter(); //文本类
             }
             break;
         case LOCATION:
-        	presenter = new EaseChatLocationPresenter();
+        	presenter = new EaseChatLocationPresenter(); //位置类
             break;
         case FILE:
-        	presenter = new EaseChatFilePresenter();
+        	presenter = new EaseChatFilePresenter(); //文件类
             break;
         case IMAGE:
-        	presenter = new EaseChatImagePresenter();
+        	presenter = new EaseChatImagePresenter();  //图片类
             break;
         case VOICE:
-        	presenter = new EaseChatVoicePresenter();
+        	presenter = new EaseChatVoicePresenter();  //语音类
             break;
         case VIDEO:
-        	presenter = new EaseChatVideoPresenter();
+        	presenter = new EaseChatVideoPresenter();  //视频类
             break;
         default:
             break;
@@ -256,19 +256,19 @@ public class EaseMessageAdapter extends BaseAdapter{
 
 	@SuppressLint("NewApi")
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		EMMessage message = getItem(position);
+		EMMessage message = getItem(position); //获取消息
 
 		EaseChatRowPresenter presenter = null;
 
 		if (convertView == null) {
-			presenter = createChatRowPresenter(message, position);
-			convertView = presenter.createChatRow(context, message, position, this);
+			presenter = createChatRowPresenter(message, position); //创建对应类型视图提供者
+			convertView = presenter.createChatRow(context, message, position, this); //调用方法创建对应视图
 			convertView.setTag(presenter);
 		} else {
 			presenter = (EaseChatRowPresenter) convertView.getTag();
 		}
 
-		presenter.setup(message, position, itemClickListener, itemStyle);
+		presenter.setup(message, position, itemClickListener, itemStyle); //填充数据设置监听
 
 		return convertView;
 	}

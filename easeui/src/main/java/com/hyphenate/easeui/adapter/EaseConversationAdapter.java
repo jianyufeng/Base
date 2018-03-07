@@ -46,10 +46,10 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     private ConversationFilter conversationFilter;
     private boolean notiyfyByFilter;
     
-    protected int primaryColor;
-    protected int secondaryColor;
-    protected int timeColor;
-    protected int primarySize;
+    protected int primaryColor; //标题颜色
+    protected int secondaryColor; //内容颜色
+    protected int timeColor;  //时间的颜色
+    protected int primarySize;  //标题的字体大小
     protected int secondarySize;
     protected float timeSize;
 
@@ -92,9 +92,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.message = (TextView) convertView.findViewById(R.id.message);
             holder.time = (TextView) convertView.findViewById(R.id.time);
             holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
-            holder.msgState = convertView.findViewById(R.id.msg_state);
+            holder.msgState = convertView.findViewById(R.id.msg_state); //消息发送状态
             holder.list_itease_layout = (RelativeLayout) convertView.findViewById(R.id.list_itease_layout);
-            holder.motioned = (TextView) convertView.findViewById(R.id.mentioned);
+            holder.motioned = (TextView) convertView.findViewById(R.id.mentioned);  //有人@我
             convertView.setTag(holder);
         }
         holder.list_itease_layout.setBackgroundResource(R.drawable.ease_mm_listitem);
@@ -104,7 +104,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         // get username or group id
         String username = conversation.conversationId();
         
-        if (conversation.getType() == EMConversationType.GroupChat) {
+        if (conversation.getType() == EMConversationType.GroupChat) {   //群组
             String groupId = conversation.conversationId();
             if(EaseAtMessageHelper.get().hasAtMeMsg(groupId)){
                 holder.motioned.setVisibility(View.VISIBLE);
@@ -115,19 +115,19 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.avatar.setImageResource(R.drawable.ease_group_icon);
             EMGroup group = EMClient.getInstance().groupManager().getGroup(username);
             holder.name.setText(group != null ? group.getGroupName() : username);
-        } else if(conversation.getType() == EMConversationType.ChatRoom){
+        } else if(conversation.getType() == EMConversationType.ChatRoom){   //聊天室
             holder.avatar.setImageResource(R.drawable.ease_group_icon);
             EMChatRoom room = EMClient.getInstance().chatroomManager().getChatRoom(username);
             holder.name.setText(room != null && !TextUtils.isEmpty(room.getName()) ? room.getName() : username);
             holder.motioned.setVisibility(View.GONE);
-        }else {
+        }else {                      //单聊
             EaseUserUtils.setUserAvatar(getContext(), username, holder.avatar);
             EaseUserUtils.setUserNick(username, holder.name);
             holder.motioned.setVisibility(View.GONE);
         }
 
         EaseAvatarOptions avatarOptions = EaseUI.getInstance().getAvatarOptions();
-        if(avatarOptions != null && holder.avatar instanceof EaseImageView) {
+        if(avatarOptions != null && holder.avatar instanceof EaseImageView) {  //根据配置设置图像属性
             EaseImageView avatarView = ((EaseImageView) holder.avatar);
             if (avatarOptions.getAvatarShape() != 0)
                 avatarView.setShapeType(avatarOptions.getAvatarShape());
@@ -138,7 +138,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             if (avatarOptions.getAvatarRadius() != 0)
                 avatarView.setRadius(avatarOptions.getAvatarRadius());
         }
-        if (conversation.getUnreadMsgCount() > 0) {
+        if (conversation.getUnreadMsgCount() > 0) {    //未读消息数
             // show unread message count
             holder.unreadLabel.setText(String.valueOf(conversation.getUnreadMsgCount()));
             holder.unreadLabel.setVisibility(View.VISIBLE);
@@ -146,20 +146,21 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.unreadLabel.setVisibility(View.INVISIBLE);
         }
 
-        if (conversation.getAllMsgCount() != 0) {
+        if (conversation.getAllMsgCount() != 0) {   //显示 最后一条消息的内容
         	// show the content of latest message
             EMMessage lastMessage = conversation.getLastMessage();
             String content = null;
             if(cvsListHelper != null){
                 content = cvsListHelper.onSetItemSecondaryText(lastMessage);
             }
+            //会话显示消息类型
             holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),
                     BufferType.SPANNABLE);
             if(content != null){
                 holder.message.setText(content);
             }
-            holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));
-            if (lastMessage.direct() == EMMessage.Direct.SEND && lastMessage.status() == EMMessage.Status.FAIL) {
+            holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));  //设置时间
+            if (lastMessage.direct() == EMMessage.Direct.SEND && lastMessage.status() == EMMessage.Status.FAIL)  {//消息发送状态显示
                 holder.msgState.setVisibility(View.VISIBLE);
             } else {
                 holder.msgState.setVisibility(View.GONE);

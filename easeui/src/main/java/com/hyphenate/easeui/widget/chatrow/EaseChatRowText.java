@@ -15,27 +15,31 @@ import com.hyphenate.easeui.utils.EaseSmileUtils;
 
 import java.util.List;
 
-public class EaseChatRowText extends EaseChatRow{
+/**
+ * 文本视图
+ */
 
-	private TextView contentView;
+public class EaseChatRowText extends EaseChatRow {
+
+    private TextView contentView;
 
     public EaseChatRowText(Context context, EMMessage message, int position, BaseAdapter adapter) {
-		super(context, message, position, adapter);
-	}
-
-	@Override
-	protected void onInflateView() {
-		inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
-				R.layout.ease_row_received_message : R.layout.ease_row_sent_message, this);
-	}
-
-	@Override
-	protected void onFindViewById() {
-		contentView = (TextView) findViewById(R.id.tv_chatcontent);
-	}
+        super(context, message, position, adapter);
+    }
 
     @Override
-    public void onSetUpView() {
+    protected void onInflateView() { //加载布局
+        inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
+                R.layout.ease_row_received_message : R.layout.ease_row_sent_message, this);
+    }
+
+    @Override
+    protected void onFindViewById() {
+        contentView = (TextView) findViewById(R.id.tv_chatcontent); //文本内容控件
+    }
+
+    @Override
+    public void onSetUpView() {  //填充数据
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
         Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
         // 设置内容
@@ -45,16 +49,16 @@ public class EaseChatRowText extends EaseChatRow{
     @Override
     protected void onViewUpdate(EMMessage msg) {
         switch (msg.status()) {
-            case CREATE:
+            case CREATE:  //创建待发
                 onMessageCreate();
                 break;
-            case SUCCESS:
+            case SUCCESS: //成功
                 onMessageSuccess();
                 break;
-            case FAIL:
+            case FAIL:   //失败
                 onMessageError();
                 break;
-            case INPROGRESS:
+            case INPROGRESS:  //发送中
                 onMessageInProgress();
                 break;
         }
@@ -72,12 +76,12 @@ public class EaseChatRowText extends EaseChatRow{
         }
     }
 
-    private void onMessageCreate() {
+    private void onMessageCreate() { //待发消息
         progressBar.setVisibility(View.VISIBLE);
         statusView.setVisibility(View.GONE);
     }
 
-    private void onMessageSuccess() {
+    private void onMessageSuccess() { //成功状态
         progressBar.setVisibility(View.GONE);
         statusView.setVisibility(View.GONE);
 
@@ -93,12 +97,12 @@ public class EaseChatRowText extends EaseChatRow{
         EaseDingMessageHelper.get().setUserUpdateListener(message, userUpdateListener);
     }
 
-    private void onMessageError() {
+    private void onMessageError() {  //失败状态
         progressBar.setVisibility(View.GONE);
         statusView.setVisibility(View.VISIBLE);
     }
 
-    private void onMessageInProgress() {
+    private void onMessageInProgress() { //发送中状态
         progressBar.setVisibility(View.VISIBLE);
         statusView.setVisibility(View.GONE);
     }

@@ -44,7 +44,7 @@ public class EaseChatRowVoice extends EaseChatRowFile {
     protected void onSetUpView() {
         EMVoiceMessageBody voiceBody = (EMVoiceMessageBody) message.getBody();
         int len = voiceBody.getLength();
-        if (len > 0) {
+        if (len > 0) {  //设置语音时长
             voiceLengthView.setText(voiceBody.getLength() + "\"");
             voiceLengthView.setVisibility(View.VISIBLE);
         } else {
@@ -57,13 +57,13 @@ public class EaseChatRowVoice extends EaseChatRowFile {
         }
 
         if (message.direct() == EMMessage.Direct.RECEIVE) {
-            if (message.isListened()) {
+            if (message.isListened()) {   //语音是否已听
                 // hide the unread icon
                 readStatusView.setVisibility(View.INVISIBLE);
             } else {
                 readStatusView.setVisibility(View.VISIBLE);
             }
-            EMLog.d(TAG, "it is receive msg");
+            EMLog.d(TAG, "it is receive msg");  //收到语音的下载状态
             if (voiceBody.downloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
                     voiceBody.downloadStatus() == EMFileMessageBody.EMDownloadStatus.PENDING) {
                 if (EMClient.getInstance().getOptions().getAutodownloadThumbnail()) {
@@ -79,6 +79,7 @@ public class EaseChatRowVoice extends EaseChatRowFile {
 
         // To avoid the item is recycled by listview and slide to this item again but the animation is stopped.
         EaseChatRowVoicePlayer voicePlayer = EaseChatRowVoicePlayer.getInstance(getContext());
+        //避免在播放时 视图回收重新显示要播放正在收听的动画
         if (voicePlayer.isPlaying() && message.getMsgId().equals(voicePlayer.getCurrentPlayingId())) {
             startVoicePlayAnimation();
         }
@@ -92,7 +93,7 @@ public class EaseChatRowVoice extends EaseChatRowFile {
         if (message.direct() == EMMessage.Direct.SEND) {
             return;
         }
-
+        //显示正在下载进度
         EMVoiceMessageBody voiceBody = (EMVoiceMessageBody) msg.getBody();
         if (voiceBody.downloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
                 voiceBody.downloadStatus() == EMFileMessageBody.EMDownloadStatus.PENDING) {
@@ -102,11 +103,11 @@ public class EaseChatRowVoice extends EaseChatRowFile {
         }
     }
 
-    public void startVoicePlayAnimation() {
+    public void startVoicePlayAnimation() { //播放语音动画
         if (message.direct() == EMMessage.Direct.RECEIVE) {
-            voiceImageView.setImageResource(R.anim.voice_from_icon);
+            voiceImageView.setImageResource(R.drawable.voice_from_icon);
         } else {
-            voiceImageView.setImageResource(R.anim.voice_to_icon);
+            voiceImageView.setImageResource(R.drawable.voice_to_icon);
         }
         voiceAnimation = (AnimationDrawable) voiceImageView.getDrawable();
         voiceAnimation.start();
@@ -117,11 +118,11 @@ public class EaseChatRowVoice extends EaseChatRowFile {
         }
     }
 
-    public void stopVoicePlayAnimation() {
+    public void stopVoicePlayAnimation() { //停止语音播放动画
         if (voiceAnimation != null) {
             voiceAnimation.stop();
         }
-
+        //设置显示
         if (message.direct() == EMMessage.Direct.RECEIVE) {
             voiceImageView.setImageResource(R.drawable.ease_chatfrom_voice_playing);
         } else {

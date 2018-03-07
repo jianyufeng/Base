@@ -18,24 +18,25 @@ import java.io.File;
 
 /**
  * Created by zhangsong on 17-10-12.
+ * 文件类型提供者
  */
 
 public class EaseChatFilePresenter extends EaseChatRowPresenter {
 
     @Override
     protected EaseChatRow onCreateChatRow(Context cxt, EMMessage message, int position, BaseAdapter adapter) {
-        return new EaseChatRowFile(cxt, message, position, adapter);
+        return new EaseChatRowFile(cxt, message, position, adapter); //创建文件类型 视图
     }
 
     @Override
-    public void onBubbleClick(EMMessage message) {
+    public void onBubbleClick(EMMessage message) { //气泡点击事件
         EMNormalFileMessageBody fileMessageBody = (EMNormalFileMessageBody) message.getBody();
         String filePath = fileMessageBody.getLocalUrl();
         File file = new File(filePath);
-        if (file.exists()) {
+        if (file.exists()) {   //打开本地文件
             // open files if it exist
             FileUtils.openFile(file, (Activity) getContext());
-        } else {
+        } else {  //下载收到的文件
             // download the file
             getContext().startActivity(new Intent(getContext(), EaseShowNormalFileActivity.class).putExtra("msg", message));
         }

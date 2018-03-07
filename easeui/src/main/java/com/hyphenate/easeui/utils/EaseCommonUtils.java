@@ -73,7 +73,7 @@ public class EaseCommonUtils {
 
 	/**
      * Get digest according message type and content
-     * 
+     *   显示消息提醒
      * @param message
      * @param context
      * @return

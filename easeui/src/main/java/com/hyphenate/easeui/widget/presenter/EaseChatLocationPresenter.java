@@ -14,12 +14,13 @@ import com.hyphenate.exceptions.HyphenateException;
 
 /**
  * Created by zhangsong on 17-10-12.
+ * 位置视图提供者
  */
 
 public class EaseChatLocationPresenter extends EaseChatRowPresenter {
     @Override
     protected EaseChatRow onCreateChatRow(Context cxt, EMMessage message, int position, BaseAdapter adapter) {
-        return new EaseChatRowLocation(cxt, message, position, adapter);
+        return new EaseChatRowLocation(cxt, message, position, adapter); //创建位置视图
     }
 
     @Override

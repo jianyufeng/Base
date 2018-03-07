@@ -1,7 +1,6 @@
 package com.hyphenate.easeui.widget.chatrow;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.view.View;
@@ -12,11 +11,9 @@ import android.widget.TextView;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMVideoMessageBody;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
-import com.hyphenate.easeui.ui.EaseShowVideoActivity;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.DateUtils;
 import com.hyphenate.util.EMLog;
@@ -37,7 +34,7 @@ public class EaseChatRowVideo extends EaseChatRowFile{
     }
 
 	@Override
-	protected void onInflateView() {
+	protected void onInflateView() { //视频视图
 		inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
 				R.layout.ease_row_received_video : R.layout.ease_row_sent_video, this);
 	}
@@ -45,10 +42,10 @@ public class EaseChatRowVideo extends EaseChatRowFile{
 	@Override
 	protected void onFindViewById() {
 	    imageView = ((ImageView) findViewById(R.id.chatting_content_iv));
-        sizeView = (TextView) findViewById(R.id.chatting_size_iv);
-        timeLengthView = (TextView) findViewById(R.id.chatting_length_iv);
-        ImageView playView = (ImageView) findViewById(R.id.chatting_status_btn);
-        percentageView = (TextView) findViewById(R.id.percentage);
+        sizeView = (TextView) findViewById(R.id.chatting_size_iv);  //大小
+        timeLengthView = (TextView) findViewById(R.id.chatting_length_iv); //播放时长
+        ImageView playView = (ImageView) findViewById(R.id.chatting_status_btn); //播放按钮
+        percentageView = (TextView) findViewById(R.id.percentage); //发送的百分比
 	}
 
 	@Override
@@ -57,28 +54,28 @@ public class EaseChatRowVideo extends EaseChatRowFile{
         String localThumb = videoBody.getLocalThumb();
 
         if (localThumb != null) {
-
+            //显示视频图片
             showVideoThumbView(localThumb, imageView, videoBody.getThumbnailUrl(), message);
         }
         if (videoBody.getDuration() > 0) {
-            String time = DateUtils.toTime(videoBody.getDuration());
+            String time = DateUtils.toTime(videoBody.getDuration());//设置时长
             timeLengthView.setText(time);
         }
 
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
+        if (message.direct() == EMMessage.Direct.RECEIVE) { //设置收到的文件大小
             if (videoBody.getVideoFileLength() > 0) {
                 String size = TextFormater.getDataSize(videoBody.getVideoFileLength());
                 sizeView.setText(size);
             }
         } else {
-            if (videoBody.getLocalUrl() != null && new File(videoBody.getLocalUrl()).exists()) {
+            if (videoBody.getLocalUrl() != null && new File(videoBody.getLocalUrl()).exists()) {//设置发送的文件大小
                 String size = TextFormater.getDataSize(new File(videoBody.getLocalUrl()).length());
                 sizeView.setText(size);
             }
         }
 
         EMLog.d(TAG,  "video thumbnailStatus:" + videoBody.thumbnailDownloadStatus());
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
+        if (message.direct() == EMMessage.Direct.RECEIVE) { //设置
             if (videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
                     videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.PENDING) {
                 imageView.setImageResource(R.drawable.ease_default_image);
@@ -90,7 +87,7 @@ public class EaseChatRowVideo extends EaseChatRowFile{
                 }
             }
             return;
-        }else{
+        }else{ //发送视频设置状态
             if (videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
                     videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.PENDING ||
                         videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.FAILED) {
@@ -116,7 +113,7 @@ public class EaseChatRowVideo extends EaseChatRowFile{
      * @param iv
      * @param thumbnailUrl
      *            Url on server for thumbnails
-     * @param message
+     * @param message  设置视频缩略图
      */
     private void showVideoThumbView(final String localThumb, final ImageView iv, String thumbnailUrl, final EMMessage message) {
         // first check if the thumbnail image already loaded into cache

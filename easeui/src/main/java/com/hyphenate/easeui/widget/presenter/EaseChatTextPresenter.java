@@ -14,6 +14,7 @@ import com.hyphenate.exceptions.HyphenateException;
 
 /**
  * Created by zhangsong on 17-10-12.
+ * 文本类型的消息视图代理
  */
 
 public class EaseChatTextPresenter extends EaseChatRowPresenter {
@@ -21,11 +22,11 @@ public class EaseChatTextPresenter extends EaseChatRowPresenter {
 
     @Override
     protected EaseChatRow onCreateChatRow(Context cxt, EMMessage message, int position, BaseAdapter adapter) {
-        return new EaseChatRowText(cxt, message, position, adapter);
+        return new EaseChatRowText(cxt, message, position, adapter);//创建文本视图
     }
 
     @Override
-    public void onBubbleClick(EMMessage message) {
+    public void onBubbleClick(EMMessage message) { //点击气泡  ？？？
         super.onBubbleClick(message);
 
         if (!EaseDingMessageHelper.get().isDingMessage(message)) {
@@ -39,9 +40,9 @@ public class EaseChatTextPresenter extends EaseChatRowPresenter {
     }
 
     @Override
-    protected void handleReceiveMessage(EMMessage message) {
+    protected void handleReceiveMessage(EMMessage message) { //处理收到的消息
         if (!message.isAcked() && message.getChatType() == EMMessage.ChatType.Chat) {
-            try {
+            try { //发送已读提醒
                 EMClient.getInstance().chatManager().ackMessageRead(message.getFrom(), message.getMsgId());
             } catch (HyphenateException e) {
                 e.printStackTrace();
@@ -49,7 +50,7 @@ public class EaseChatTextPresenter extends EaseChatRowPresenter {
             return;
         }
 
-        // Send the group-ack cmd type msg if this msg is a ding-type msg.
+        // Send the group-ack cmd type msg if this msg is a ding-type msg. ？？？
         EaseDingMessageHelper.get().sendAckMessage(message);
     }
 }

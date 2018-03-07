@@ -18,6 +18,7 @@ import java.io.File;
 
 /**
  * Created by zhangsong on 17-10-12.
+ * 图片类型视图提供者
  */
 
 public class EaseChatImagePresenter extends EaseChatFilePresenter {

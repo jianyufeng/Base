@@ -87,6 +87,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MainTabActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.ChatActivity"
             android:launchMode="singleTask"
